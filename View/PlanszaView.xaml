@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.PlanszaView"
+             xmlns:local="clr-namespace:MauiApp1.ViewModel"
+             xmlns:viewmodel="clr-namespace:MauiApp1.ViewModel"
+             x:DataType="viewmodel:PlanszaDetailsViewModel"
+             xmlns:models="clr-namespace:MauiApp1.Model"
+             >
+    
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid ColumnDefinitions="*, Auto, *" RowDefinitions="160, Auto">
+                <Entry Text="{Binding Plansza.NazwaGracza}"
+                       Grid.Column="1"
+                       Grid.Row="1"/>
+            </Grid>
+            <VerticalStackLayout>
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.CałkowitePunkty, StringFormat='Całkowite Punkty: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.Zając, StringFormat='Zające: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.Lis, StringFormat='Lisy: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.Ważka, StringFormat='Ważki: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.Pstrąg, StringFormat='Pstrągi: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.Niedźwiedź, StringFormat='Niedźwiedźe: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.Pszczoła, StringFormat='Pszczoły: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.Bielik, StringFormat='Bieliki: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.Jeleń, StringFormat='Jelenie: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.Wilk, StringFormat='Wilki: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.Potok, StringFormat='Potoki: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.Łąka, StringFormat='Łąki: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Plansza.Nisze, StringFormat='Luki: {0}'}" />
+                <CollectionView ItemsSource="{Binding Plansza.PlanszaEmotikonówObservable}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:RządEmotikonów">
+                            <VerticalStackLayout Padding="12">
+                                <CollectionView ItemsSource="{Binding Rząd}" ItemsLayout="HorizontalList" HeightRequest="80">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="x:String">
+                                            <Border Padding="6" Margin="4" BackgroundColor="LightGray">
+                                                <Label Text="{Binding .}" />
+                                            </Border>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+            <Button Text="Dodaj Zdjęcie"
+                Command="{Binding OpenCameraCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Grid.Row="1"
+                Grid.Column="0"
+                Style="{StaticResource ButtonOutline}"
+                Margin="8">
+            </Button>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
