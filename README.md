@@ -6,9 +6,9 @@ This project was created as an exercise to combine mobile development with machi
 ---
 
 ## ✨ Features
-- Adding 2-6 players and naming them.
-- Take a photo of cards using your phone’s camera.
-- app automatically converts the photo into a **5x4 grid** based on position of left corners of bounding boxes and displays it using
+- Responsive UI that automatically updates when values are changed
+- Take photos using your phone’s camera.
+- app automatically converts the photo of the cards into a **5x4 grid** based on position of left corners of bounding boxes and displays it using
   - a conversion done with a Yolo11 model running on **ONNX Runtime** with **Android NNAPI** for fast calculations on CPU/GPU.
 - Calculate scores once every player is added (calculated with my own script in Ekosystem.cs based on [rules of the game](https://gry.nk.com.pl/wp-content/uploads/2023/04/ekosystem_instrukcja_2023.pdf)).
 - Get a **detailed breakdown** of each player’s score.
