@@ -1,12 +1,13 @@
-﻿
-using MauiApp1.Ekosystem;
+﻿using MauiApp1.Ekosystem;
 
 namespace MauiApp1.Services
 {
     public class PlanszaSerwis
     {
+        DetekcjaKart detekcjaKart;
         public PlanszaSerwis()
         {
+            detekcjaKart = new();
         }
         List<Plansza> listaPlansz = new();
         public async Task<List<Plansza>> DodajGracza()
@@ -20,7 +21,7 @@ namespace MauiApp1.Services
         }
         public async Task DodajZdjęcie(Plansza plansza, byte[] path)
         {
-            await FunkcjePomocnicze.OdczytajPlanszeZeZdjęcia(plansza, path);
+            await OdczytajPlanszeZeZdjęcia(plansza, path);
         }
 
         public async Task ObliczPunkty(ObservableCollection<Plansza> plansze)
@@ -58,31 +59,9 @@ namespace MauiApp1.Services
                     plansze[i].Nisze = gracze[i].kartaStatus[Karta.Nisze];
                     plansze[i].CałkowitePunkty = gracze[i]._punkty;
                 }
-                //foreach (var gracz in gracze)
-                //{
-                //    plansze.Add(new Plansza()
-                //    {
-                //        Łąka = gracz.kartaStatus[Karta.Łąka],
-                //        Potok = gracz.kartaStatus[Karta.Potok],
-                //        Jeleń = gracz.kartaStatus[Karta.Jeleń],
-                //        Niedźwiedź = gracz.kartaStatus[Karta.Niedźwiedź],
-                //        Lis = gracz.kartaStatus[Karta.Lis],
-                //        Wilk = gracz.kartaStatus[Karta.Wilk],
-                //        Pstrąg = gracz.kartaStatus[Karta.Pstrąg],
-                //        Ważka = gracz.kartaStatus[Karta.Ważka],
-                //        Pszczoła = gracz.kartaStatus[Karta.Pszczoła],
-                //        Bielik = gracz.kartaStatus[Karta.Bielik],
-                //        Zając = gracz.kartaStatus[Karta.Zając],
-                //        Nisze = gracz.kartaStatus[Karta.Nisze],
-                //        CałkowitePunkty = gracz._punkty,
-                //        NazwaGracza = gracz.nazwaGracza
-                //    });
-                //}
             }
         }
-    }
-    internal static class FunkcjePomocnicze
-    {
+
         private static readonly Dictionary<int, string> liczbaDoEmotikonki = new()
         {
             {0,"🌾" },
@@ -98,9 +77,9 @@ namespace MauiApp1.Services
             {10, "🐇" },
             {11, "x" }
         };
-        public static async Task OdczytajPlanszeZeZdjęcia(Plansza planszaDoEdycji, byte[] zdjęcie)
+        public async Task OdczytajPlanszeZeZdjęcia(Plansza planszaDoEdycji, byte[] zdjęcie)
         {
-            List<List<int>> plansza = await DetekcjaKart.detect(zdjęcie);
+            List<List<int>> plansza = await detekcjaKart.detect(zdjęcie);
 
             if (planszaDoEdycji.PlanszaEmotikonówObservable is null)
                 planszaDoEdycji.PlanszaEmotikonówObservable = new();

@@ -8,11 +8,11 @@
     x:Name="CurrentPage"
     xmlns:viewmodel="clr-namespace:MauiApp1.ViewModel"
     x:DataType="viewmodel:CameraViewModel">
-    <ContentPage.Resources>
-        <toolkit:ByteArrayToImageSourceConverter x:Key="ToImage" />
-    </ContentPage.Resources>
-    <Grid RowDefinitions="*,100">
-        <toolkit:CameraView
+	<ContentPage.Resources>
+		<toolkit:ByteArrayToImageSourceConverter x:Key="ToImage" />
+	</ContentPage.Resources>
+	<Grid RowDefinitions="*,100">
+		<toolkit:CameraView
             x:Name="Camera"
             Grid.RowSpan="2"
             CameraFlashMode="{Binding FlashMode, Source={x:Reference CurrentPage}}"
@@ -23,63 +23,61 @@
             VerticalOptions="Fill"
             ZoomFactor="{Binding ZoomLevel}" />
 
-        <Image
+		<Image
             Aspect="AspectFit"
             HorizontalOptions="Fill"
             IsVisible="{Binding ShowPhoto}"
             Source="{Binding Bytes, Converter={StaticResource ToImage}}"
             VerticalOptions="Fill" />
 
-        <Slider VerticalOptions="End" IsVisible="{Binding ShowCamera}" HorizontalOptions="Fill" Maximum="{Binding MaxZoomLevel}" Minimum="{Binding MinZoomLevel}" Value="{Binding ZoomLevel}" />
+		<Slider VerticalOptions="End" IsVisible="{Binding ShowCamera}" HorizontalOptions="Fill" Maximum="{Binding MaxZoomLevel}" Minimum="{Binding MinZoomLevel}" Value="{Binding ZoomLevel}" />
 
-        <HorizontalStackLayout
+		<HorizontalStackLayout
             Grid.Row="1"
             HorizontalOptions="Center"
             IsVisible="{Binding ShowCamera}"
             Spacing="20">
-            <Button
+			<Button
                 Background="Transparent"
                 Command="{Binding RotateCommand}"
                 HeightRequest="40"
-                ImageSource="camera_switch" />
-            <Button
+                Text="🔄" />
+			<Button
                 Background="Transparent"
                 Command="{Binding CaptureImageCommand, Source={x:Reference Camera}}"
                 CommandParameter="{Binding Token}"
                 HeightRequest="80"
-                ImageSource="camera.png" />
-            <Button
+                Text="📷" />
+			<Button
                 BackgroundColor="Transparent"
                 Command="{Binding FlashCommand}"
                 HeightRequest="40"
-                ImageSource="{Binding FlashIcon}" />
+                Text="✨" />
 
-            <Button
+			<Button
                 BackgroundColor="Transparent"
                 Command="{Binding WideAngleCommand}"
                 HeightRequest="40"
-                ImageSource="{Binding WideIcon}"
+                Text="↔️"
                 IsVisible="{OnPlatform Default=false,iOS=true}" />
-        </HorizontalStackLayout>
-        
-        <HorizontalStackLayout
+		</HorizontalStackLayout>
+
+		<HorizontalStackLayout
             Grid.Row="1"
             HorizontalOptions="Center"
             IsVisible="{Binding ShowPhoto}"
             Spacing="20">
-            <Button
+			<Button
                 Command="{Binding RetakePictureCommand}"
                 HeightRequest="40"
-                ImageSource="undo.png"
                 Text="Retake"
                 TextColor="White" />
-            <Button
+			<Button
                 Command="{Binding SavePictureCommand}"
                 HeightRequest="40"
-                ImageSource="save.png"
-                Text="Save" 
+                Text="Save"
                 TextColor="White" />
-        </HorizontalStackLayout>
-    </Grid>
+		</HorizontalStackLayout>
+	</Grid>
 
 </ContentPage>
